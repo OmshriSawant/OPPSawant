@@ -106,8 +106,9 @@
             cursor: pointer;
         }
 
+        /* Modified hero section for side-by-side layout */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -116,9 +117,98 @@
         }
 
         .hero-content {
-            max-width: 800px;
-            text-align: center;
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
             z-index: 1;
+        }
+
+        .hero-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        /* 3D Profile Photo Container */
+        .profile-photo-container {
+            flex: 0 0 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px; /* Add perspective for 3D effect */
+        }
+
+        /* 3D Profile Photo */
+        .profile-photo {
+            width: 250px;
+            height: 250px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate3d 15s infinite linear;
+            cursor: pointer;
+        }
+
+        /* Pause animation on hover */
+        .profile-photo:hover {
+            animation-play-state: paused;
+        }
+
+        /* Front face of the 3D photo */
+        .profile-photo-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            
+            overflow: hidden;
+            backface-visibility: hidden;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+
+        /* Back face of the 3D photo */
+        .profile-photo-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            backface-visibility: hidden;
+            transform: rotateY(180deg);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--dark-bg);
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 3D Rotation Animation */
+        @keyframes rotate3d {
+            0% {
+                transform: rotateY(0deg);
+            }
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+
+        .hero h3 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
         }
 
         .hero h1 {
@@ -130,14 +220,13 @@
         }
 
         .hero p {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             margin-bottom: 2rem;
         }
 
         .cta-buttons {
             display: flex;
             gap: 1rem;
-            justify-content: center;
         }
 
         .cta-button {
@@ -220,29 +309,29 @@
         }
 
         .project-image {
-    width: 100%;
-    height: 200px; /* Fixed height for uniformity */
-    background: var(--accent-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px; /* Soft rounded corners */
-    overflow: hidden; /* Prevents image overflow */
-    box-shadow: 0px 4px 10px rgba(0, 255, 0, 0.3); /* Soft green glow effect */
-}
+            width: 100%;
+            height: 200px; /* Fixed height for uniformity */
+            background: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px; /* Soft rounded corners */
+            overflow: hidden; /* Prevents image overflow */
+            box-shadow: 0px 4px 10px rgba(0, 255, 0, 0.3); /* Soft green glow effect */
+        }
 
-.project-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures images fill the space properly */
-    border-radius: 10px; /* Matches container's rounded corners */
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures images fill the space properly */
+            border-radius: 10px; /* Matches container's rounded corners */
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
 
-.project-image img:hover {
-    transform: scale(1.05); /* Slight zoom effect on hover */
-    opacity: 0.9; /* Slight transparency for a sleek effect */
-}
+        .project-image img:hover {
+            transform: scale(1.05); /* Slight zoom effect on hover */
+            opacity: 0.9; /* Slight transparency for a sleek effect */
+        }
 
 
         .project-title {
@@ -368,9 +457,38 @@
             background: var(--card-light);
         }
 
+        /* Responsive design adjustments */
         @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+
+            .hero-text {
+                text-align: center;
+            }
+
+            .profile-photo-container {
+                margin-bottom: 2rem;
+            }
+
+            .profile-photo {
+                width: 180px;
+                height: 180px;
+            }
+
+            .profile-photo-front,
+            .profile-photo-back {
+                width: 180px;
+                height: 180px;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
             }
 
             .nav-links {
@@ -379,6 +497,7 @@
 
             .cta-buttons {
                 flex-direction: column;
+                align-items: center;
             }
 
             .section {
@@ -464,12 +583,24 @@
 
     <section id="home" class="hero">
         <div class="hero-content">
-            <h3>Hello, I'm</h3>
-            <h1>Omshri Pundlik Sawant</h1>
-            <p>Driven by a passion for cybersecurity, I am ready to showcase my skills in real-world scenarios. As a proud graduate in Computer Engineering from the University of Mumbai, I am fully prepared to tackle the challenges ahead and make a significant impact in the field.</p>
-            <div class="cta-buttons">
-                <a href="Resume of Omshri Pundlik Sawant.pdf" class="cta-button primary">Download Resume</a>
-                <a href="#contact" class="cta-button secondary">Contact Me</a>
+            <div class="hero-text">
+                <h3>Hello, I'm</h3>
+                <h1>Omshri Pundlik Sawant</h1>
+                <p>Driven by a passion for cybersecurity, I am ready to showcase my skills in real-world scenarios. As a proud graduate in Computer Engineering from the University of Mumbai, I am fully prepared to tackle the challenges ahead and make a significant impact in the field.</p>
+                <div class="cta-buttons">
+                    <a href="Resume of Omshri Pundlik Sawant.pdf" class="cta-button primary">Download Resume</a>
+                    <a href="#contact" class="cta-button secondary">Contact Me</a>
+                </div>
+            </div>
+            <div class="profile-photo-container">
+                <div class="profile-photo">
+                    <div class="profile-photo-front">
+                        <img src="photo1.jpeg?height=350&width=350" alt="Omshri Pundlik Sawant">
+                    </div>
+                    <div class="profile-photo-back">
+                       <h3>Cybersecurity Enthusiast & Computer Engineer</h3>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -721,67 +852,109 @@
             retina_detect: true
         });
 
-        // Form submission (you can add your own logic here)
-       /* const contactForm = document.querySelector('.contact-form');
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thank you for your message. I will get back to you soon!');
-            contactForm.reset();
-        });*/
-       document.querySelector('form[name="contact"]').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const form = e.target;
-      const submitButton = form.querySelector('.submit-btn');
-      
-      // Disable submit button during submission
-      submitButton.disabled = true;
-      submitButton.textContent = 'Sending...';
-    
-      // Create FormData
-      const formData = new FormData(form);
-    
-      // Fetch submission
-      fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          // Show success popup
-          Swal.fire({
-            icon: 'success',
-            title: 'Message Sent!',
-            text: 'Thank you for your message. I will get back to you soon.',
-            confirmButtonText: 'OK'
-          });
+        // Form submission
+        document.querySelector('form[name="contact"]').addEventListener('submit', function(e) {
+          e.preventDefault();
+          const form = e.target;
+          const submitButton = form.querySelector('.submit-btn');
           
-          // Reset form
-          form.reset();
-        } else {
-          // Throw error for catch block
-          throw new Error('Form submission failed');
-        }
-      })
-      .catch(error => {
-        // Show error popup
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong. Please try again.',
-          confirmButtonText: 'Try Again'
-        });
+          // Disable submit button during submission
+          submitButton.disabled = true;
+          submitButton.textContent = 'Sending...';
         
-        console.error('Error:', error);
-      })
-      .finally(() => {
-        // Re-enable submit button
-        submitButton.disabled = false;
-        submitButton.textContent = 'Send Message';
-      });
-    });
+          // Create FormData
+          const formData = new FormData(form);
+        
+          // Fetch submission
+          fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          })
+          .then(response => {
+            if (response.ok) {
+              // Show success popup
+              Swal.fire({
+                icon: 'success',
+                title: 'Message Sent!',
+                text: 'Thank you for your message. I will get back to you soon.',
+                confirmButtonText: 'OK'
+              });
+              
+              // Reset form
+              form.reset();
+            } else {
+              // Throw error for catch block
+              throw new Error('Form submission failed');
+            }
+          })
+          .catch(error => {
+            // Show error popup
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong. Please try again.',
+              confirmButtonText: 'Try Again'
+            });
+            
+            console.error('Error:', error);
+          })
+          .finally(() => {
+            // Re-enable submit button
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Message';
+          });
+        });
+
+        // Add manual control for 3D photo rotation
+        const profilePhoto = document.querySelector('.profile-photo');
+        
+        // Allow manual rotation on drag
+        let isDragging = false;
+        let startX = 0;
+        let rotationY = 0;
+
+        profilePhoto.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            // Pause the animation when starting to drag
+            profilePhoto.style.animation = 'none';
+            // Get current rotation
+            const transform = window.getComputedStyle(profilePhoto).getPropertyValue('transform');
+            const matrix = new DOMMatrix(transform);
+            rotationY = Math.atan2(matrix.m13, matrix.m11) * (180 / Math.PI);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const deltaX = e.clientX - startX;
+            const newRotationY = rotationY + deltaX / 5;
+            profilePhoto.style.transform = `rotateY(${newRotationY}deg)`;
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            // Resume animation after a short delay
+            setTimeout(() => {
+                if (!isDragging) {
+                    profilePhoto.style.animation = 'rotate3d 15s infinite linear';
+                }
+            }, 2000);
+        });
+
+        // Double click to flip quickly
+        profilePhoto.addEventListener('dblclick', () => {
+            profilePhoto.style.animation = 'none';
+            profilePhoto.style.transform = 'rotateY(180deg)';
+            
+            // Resume animation after 2 seconds
+            setTimeout(() => {
+                profilePhoto.style.animation = 'rotate3d 15s infinite linear';
+                profilePhoto.style.transform = '';
+            }, 2000);
+        });
     </script>
 </body>
 </html>
